@@ -3,7 +3,7 @@
 import logo from './companylogo.svg'
  
  function Login(){
-const { register, handleSubmit, errors } = useForm();
+const { register, handleSubmit, formState: {errors} } = useForm();
 const [userInfo, setUserInfo] = useState();
 const onSubmit = (data) => {
     setUserInfo(data);
@@ -34,13 +34,13 @@ console.log(errors);
                       <div class="mb-4 flex bg-white rounded-lg">
                           <i class='bx bx-user text-2xl py-2 px-2 text-gray-800'></i>
                       
-                          <input type="text" id="username" name="username" placeholder="Enter ID" ref={register({required:"Username is required"})}
+                          <input type="text" id="username" name="username" placeholder="Enter ID" {...register("username")}
                               class="w-full rounded-lg p-2  " />
                           </div>
                           <p>{errors.username?.message}</p>
                               <div class="mb-4 bg-white flex rounded-lg">
                                   <i class='bx bx-lock-alt text-2xl text-gray-800 py-2 px-2 ' ></i>
-                          <input type="password" id="password" name="password" placeholder="Password" ref={register({required:"Password is required"})}
+                          <input type="password" id="password" name="password" placeholder="Password" {...register("password")}
                               class="w-full rounded-lg  p-2 " />
           
                           </div>
