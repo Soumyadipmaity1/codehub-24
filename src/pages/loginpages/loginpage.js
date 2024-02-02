@@ -16,7 +16,7 @@ export default function Login() {
   const passwordRequirements = {
     required: true,
     pattern: /^(?=.*[@#$])(?=.*[0-9]{4})(?=.*[A-Z]{2})(?=.*[a-z]{2}).*$/,
-    minLength: 8,
+    minLength: 4,
   };
 
   const password = watch("password");
@@ -81,7 +81,7 @@ export default function Login() {
               {errors.password.type === "required"
                 ? "Password is required"
                 : errors.password.type === "minLength"
-                ? "Password must be at least 8 characters long"
+                ? "Password must be at least 4 characters long"
                 : ""}
             </p>
           )}
