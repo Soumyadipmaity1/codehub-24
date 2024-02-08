@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom"
 import HomePage from "./pages/HomePage"
-import Login from "./pages/Loginpages/Loginpage"
+import Login from "./pages/loginpages/loginpage"
 import "./App.css"
 
 
