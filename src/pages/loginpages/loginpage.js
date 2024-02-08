@@ -2,8 +2,15 @@
 import logo from "./companylogo.svg";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+
+import { login } from "../../services/operations/authAPI"
 
 export default function Login() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -11,11 +18,20 @@ export default function Login() {
     watch,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log('Form submitted');
+    console.log(data);
+    const email=data.email;
+    const password=data.password;
+    console.log(email)
+    console.log(password)
+
+      dispatch(login(email, password, navigate))
+  };
+  
 
   const passwordRequirements = {
     required: true,
-    pattern: /^(?=.*[@#$])(?=.*[0-9]{4})(?=.*[A-Z]{2})(?=.*[a-z]{2}).*$/,
     minLength: 4,
   };
 
@@ -41,7 +57,6 @@ export default function Login() {
         <div className="w-24 ml-10 h-2 border-b-4 mb-10 border-purple-400"></div>
 
         <form
-          id="form"
           className="flex flex-col w-full px-10"
           onSubmit={handleSubmit(onSubmit)}
           
@@ -50,17 +65,17 @@ export default function Login() {
             <i className="bx bx-user text-2xl py-2 px-2 text-gray-800"></i>
             <input
               type="text"
-              {...register("username", { required: true })}
-              placeholder="Username"
+              {...register("email", { required: true })}
+              placeholder="email"
               className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.username && "border-red-500"
+                errors.email && "border-red-500"
               }`}
             />
           </div>
 
-          {errors.username && (
+          {errors.email && (
             <p className="text-red-500 text-xs italic mb-4">
-              Username is required
+              email is required
             </p>
           )}
 
