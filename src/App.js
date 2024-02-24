@@ -12,24 +12,25 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token")
-    if (token) {
-      console.log()
-    } else {
-      navigate("/login", { replace: true })
-    }
+    // if (token) {  isko hatae hai
+    //   console.log()
+    // } else {
+    //   navigate("/login", { replace: true })
+    // }
     console.log(token)
   }, [navigate])
 
   return (
     <Routes>
-      <Route
+      {/* <Route
         path="/"
         element={
           localStorage.getItem("token")
             ? <HomePage />
             : <Navigate to="/login" replace />
         }
-      />
+      /> */}
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );
