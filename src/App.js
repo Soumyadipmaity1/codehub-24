@@ -2,7 +2,6 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom"
 import HomePage from './pages/landing/components/HomePage';
-import { BrowserRouter as Routers, Route, Routes } from "react-router-dom";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import Group from "./pages/Group";
