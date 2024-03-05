@@ -1,4 +1,7 @@
-import "./App.css";
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom"
+import HomePage from './pages/landing/components/HomePage';
 import { BrowserRouter as Routers, Route, Routes } from "react-router-dom";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
@@ -8,16 +11,36 @@ import AddingPeople from "./pages/AddingPeople";
 import Login from "./pages/loginpages/loginpage";
 import Dashboard from "./pages/Dashboard";
 
+import "./App.css"
+
+
 function App() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    // if (token) {  isko hatae hai
+    //   console.log()
+    // } else {
+    //   navigate("/login", { replace: true })
+    // }
+    console.log(token)
+  }, [navigate])
+
   return (
-    <>
-      <Login />
-      {/*I have included the login and the dashboard in the same div you  can add the authentication function as you wish */}
-      <Routers>
-        {/* Added the routing part for my dashboard */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Mygroup" element={<Group />} />
+    <Routes>
+      {/* <Route
+        path="/"
+        element={
+          localStorage.getItem("token")
+            ? <HomePage />
+            : <Navigate to="/login" replace />
+        }
+      /> */}
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/Mygroup" element={<Group />} />
           <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
           <Route
             path="/Mygroup/Groupallocate/AddPeople"
@@ -25,9 +48,12 @@ function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
-        </Routes>
-      </Routers>
-    </>
+    </Routes>
+   
+      
+       
+      
+    
   );
 }
 
