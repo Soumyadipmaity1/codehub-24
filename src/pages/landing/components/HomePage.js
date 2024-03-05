@@ -11,4 +11,4 @@ function HomePage() {
 
 export { Footer, Offer, Loginpart, ImageSlider }; 
 
-export default HomePage; 
+export default HomePage;
