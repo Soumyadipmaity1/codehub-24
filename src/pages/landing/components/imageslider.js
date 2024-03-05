@@ -22,10 +22,10 @@ const ImageSlider = () => {
 <div className=' text-white pt-16'>
     <div className="items-center flex-col justify-center text-center">
             <h2 className="text-4xl font-bold mb-4">Endless Possibilities</h2>
-            <div className=" h-1 ml-[525px] items-center bg-purple-400 w-52 mt-5 mb-5"></div>
+            <div className=" w-40 h-2 mx-auto border-b-4 mt-1 mb-30 items-center border-purple-400 "></div>
             <h2 className="text-4xl font-bold mb-4">Infinity</h2>
 
-            <div className="arrow"></div>
+            <div className="arrow "></div>
 
         </div>
     <div className=' flex   justify-center'>
