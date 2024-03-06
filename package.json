@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^2.1.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -21,9 +22,15 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
     "react-hot-toast": "^2.4.1",
+    "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
+<<<<<<< HEAD
     "react-scripts": "5.0.1",
     "react-tabs": "^6.0.2",
+=======
+    "react-slick": "^0.30.1",
+    "slick-carousel": "^1.8.1",
+>>>>>>> 1c6a7e3745d4f5d5596225cc2662f2b63bb60a48
     "web-vitals": "^2.1.4",
     "yup": "^1.3.3"
   },
@@ -54,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.1"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",

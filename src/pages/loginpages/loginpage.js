@@ -1,12 +1,45 @@
 import logo from "./companylogo.svg";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+
+import { login } from "../../services/operations/authAPI"
 
 export default function Login() {
+<<<<<<< HEAD
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
   const onSubmit = (data) => {
     console.log(data); };
+=======
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log('Form submitted');
+    console.log(data);
+    const email=data.email;
+    const password=data.password;
+    console.log(email)
+    console.log(password)
+
+      dispatch(login(email, password, navigate))
+  };
+  
+
+  const passwordRequirements = {
+    required: true,
+    minLength: 4,
+  };
+>>>>>>> 1c6a7e3745d4f5d5596225cc2662f2b63bb60a48
 
   const password = watch("password");
 
@@ -29,11 +62,20 @@ export default function Login() {
         </div>
         <div className="w-24 ml-10 h-2 border-b-4 mb-10 border-purple-400"></div>
 
+<<<<<<< HEAD
         <form id="form" className="flex flex-col w-full px-10" onSubmit={handleSubmit(onSubmit)}>
+=======
+        <form
+          className="flex flex-col w-full px-10"
+          onSubmit={handleSubmit(onSubmit)}
+          
+        >
+>>>>>>> 1c6a7e3745d4f5d5596225cc2662f2b63bb60a48
           <div className="mb-4 bg-white rounded-lg flex items-center">
             <i className="bx bx-user text-2xl py-2 px-2 text-gray-800"></i>
             <input
               type="text"
+<<<<<<< HEAD
               {...register("username", { required: "Username is required" })}
               placeholder="Username"
               className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.username && "border-red-500"}`}
@@ -42,6 +84,20 @@ export default function Login() {
 
           {errors.username && (
             <p className="text-red-500 text-xs italic mb-4">{errors.username.message}</p>
+=======
+              {...register("email", { required: true })}
+              placeholder="email"
+              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                errors.email && "border-red-500"
+              }`}
+            />
+          </div>
+
+          {errors.email && (
+            <p className="text-red-500 text-xs italic mb-4">
+              email is required
+            </p>
+>>>>>>> 1c6a7e3745d4f5d5596225cc2662f2b63bb60a48
           )}
 
           <div className="mb-2 bg-white flex rounded-lg items-center">
