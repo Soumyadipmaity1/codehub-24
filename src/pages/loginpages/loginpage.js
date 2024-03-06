@@ -1,23 +1,12 @@
-
 import logo from "./companylogo.svg";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
-  const onSubmit = (data) => console.log(data);
-
-  const passwordRequirements = {
-    required: true,
-    pattern: /^(?=.*[@#$])(?=.*[0-9]{4})(?=.*[A-Z]{2})(?=.*[a-z]{2}).*$/,
-    minLength: 4,
-  };
+  const onSubmit = (data) => {
+    console.log(data); };
 
   const password = watch("password");
 
@@ -40,51 +29,42 @@ export default function Login() {
         </div>
         <div className="w-24 ml-10 h-2 border-b-4 mb-10 border-purple-400"></div>
 
-        <form
-          id="form"
-          className="flex flex-col w-full px-10"
-          onSubmit={handleSubmit(onSubmit)}
-          
-        >
+        <form id="form" className="flex flex-col w-full px-10" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4 bg-white rounded-lg flex items-center">
             <i className="bx bx-user text-2xl py-2 px-2 text-gray-800"></i>
             <input
               type="text"
-              {...register("username", { required: true })}
+              {...register("username", { required: "Username is required" })}
               placeholder="Username"
-              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.username && "border-red-500"
-              }`}
+              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.username && "border-red-500"}`}
             />
           </div>
 
           {errors.username && (
-            <p className="text-red-500 text-xs italic mb-4">
-              Username is required
-            </p>
+            <p className="text-red-500 text-xs italic mb-4">{errors.username.message}</p>
           )}
 
           <div className="mb-2 bg-white flex rounded-lg items-center">
             <i className="bx bx-lock-alt text-2xl text-gray-800 py-2 px-2 "></i>
             <input
               type="password"
-              {...register("password", passwordRequirements)}
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 4, message: "Password must be at least 4 characters long" },
+                pattern: {
+                  // value: /^(?=.*[@#$])(?=.*[0-9]{2})(?=.*[A-Z]{})(?=.*[a-z]{2}).*$/,
+                  message: "Password must meet requirements",
+                },
+              })}
               placeholder="Password"
-              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.password && "border-red-500"
-              }`}
+              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password && "border-red-500"}`}
             />
           </div>
 
           {errors.password && (
-            <p className="text-red-500 text-xs italic mb-4">
-              {errors.password.type === "required"
-                ? "Password is required"
-                : errors.password.type === "minLength"
-                ? "Password must be at least 4 characters long"
-                : ""}
-            </p>
+            <p className="text-red-500 text-xs italic mb-4">{errors.password.message}</p>
           )}
+
           <div className="items-center text-center pt-4">
             <button
               type="submit"

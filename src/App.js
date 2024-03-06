@@ -1,9 +1,13 @@
 import "./App.css";
-import Login from "./pages/loginpages/loginpage"
+// import Login from "./pages/loginpages/loginpage"
+import MyGroup from "./pages/MyGroupPage/MyGroup";
+
 function App() {
   return (
-  
-     <Login/>
+  <div className="text-white bg-black" >
+  <MyGroup/>
+{/* <TabsUIPATH/> */}
+  </div>
   );
 }
 
