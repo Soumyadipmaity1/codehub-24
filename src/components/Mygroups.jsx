@@ -21,7 +21,7 @@ export default function Mygroup() {
         <p className="text-white ml-auto mr-8">Last updated on</p>
         <button className="cursor-pointer" onClick={toggleDropdown}>
           <img
-            src="/images/downarrow.png"
+            src="/images/Downarrow.png"
             alt="0@arrow"
             style={{ top: '5px', height: '15px', width: '15px', transform: showDropdown ? 'rotate(180deg)' : 'rotate(0deg)' }}
           />
@@ -49,13 +49,6 @@ export default function Mygroup() {
         </div>
       )}
     </div>
-
-
-    
-
-
-
-
     </>
   );
 }
