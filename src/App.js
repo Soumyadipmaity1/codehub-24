@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom"
 import HomePage from './pages/landing/components/HomePage';
 import Login from "./pages/loginpages/loginpage"
+import MyGroup from "./pages/MyGroupPage/MyGroup";
 import "./App.css"
 
 
@@ -21,18 +22,21 @@ function App() {
   }, [navigate])
 
   return (
-    <Routes>
-      {/* <Route
-        path="/"
-        element={
-          localStorage.getItem("token")
-            ? <HomePage />
-            : <Navigate to="/login" replace />
-        }
-      /> */}
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    // <Routes>
+    //   {/* <Route
+    //     path="/"
+    //     element={
+    //       localStorage.getItem("token")
+    //         ? <HomePage />
+    //         : <Navigate to="/login" replace />
+    //     }
+    //   /> */}
+    //   <Route path="/" element={<HomePage />} />
+    //   <Route path="/login" element={<Login />} />
+    // </Routes>
+
+    <MyGroup/>
+
   );
 }
 

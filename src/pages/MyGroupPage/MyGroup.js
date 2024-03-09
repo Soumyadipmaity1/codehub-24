@@ -18,7 +18,7 @@ export default function MyGroup() {
     const employeeName2 = "Employee Name";
 return(
 
-<section>
+<section className="bg-black text-white">
 <LinkPart/>
 <div class="mx-40 p-1 pt-8">
         <h1 class="text-2xl font-bold py-5">Recent Logs</h1>
