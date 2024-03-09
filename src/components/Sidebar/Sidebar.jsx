@@ -59,10 +59,10 @@ const Sidebar = () => {
   const bottommenu = [
     {
    title : "Instructions",
-   icon : "/images/User Manual.png",
+   icon : "/images/UserManual.png",
     },{
     title : "Logout",
-    icon : "/images/Logout Rounded left.png"
+    icon : "/images/LogoutRoundedleft.png"
     },
   ];
 
@@ -101,7 +101,7 @@ const Sidebar = () => {
                   <NavLink to={menu.to} key={index} className={`flex-1 ml-2 ${!open && "hidden"}`}>{menu.title}</NavLink>
                   {menu.submenu && open && (
                     <div className="mr-2 mt-2">
-                      <img src="/images/downarrow.png" alt="arrow" className={`${submenuStates[index] ? "rotate-180 cursor-pointer" : ""}`} style={{ top: '5px', height: '15px', width: '15px', }} onClick={() => toggleSubmenu(index)} />
+                      <img src="/images/Downarrow.png" alt="arrow" className={`${submenuStates[index] ? "rotate-180 cursor-pointer" : ""}`} style={{ top: '5px', height: '15px', width: '15px', }} onClick={() => toggleSubmenu(index)} />
                     </div>
                   )}
                 </li>
@@ -141,7 +141,7 @@ const Sidebar = () => {
           </ul>
 
           <div className="flex items-center bg-[#141414]" onClick={() => setOpen(!open)}>
-            <img src="/images/double left.png" className={`h-10 w-8 left-3 cursor-pointer ${
+            <img src="/images/Doubleleft.png" className={`h-10 w-8 left-3 cursor-pointer ${
               !open && "rotate-180"
             }`} />
             <button
