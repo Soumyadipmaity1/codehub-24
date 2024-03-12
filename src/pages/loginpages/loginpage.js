@@ -1,4 +1,3 @@
-
 import logo from "./companylogo.svg";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -83,23 +82,23 @@ export default function Login() {
             <i className="bx bx-lock-alt text-2xl text-gray-800 py-2 px-2 "></i>
             <input
               type="password"
-              {...register("password", passwordRequirements)}
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 4, message: "Password must be at least 4 characters long" },
+                pattern: {
+                  // value: /^(?=.*[@#$])(?=.*[0-9]{2})(?=.*[A-Z]{})(?=.*[a-z]{2}).*$/,
+                  message: "Password must meet requirements",
+                },
+              })}
               placeholder="Password"
-              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.password && "border-red-500"
-              }`}
+              className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password && "border-red-500"}`}
             />
           </div>
 
           {errors.password && (
-            <p className="text-red-500 text-xs italic mb-4">
-              {errors.password.type === "required"
-                ? "Password is required"
-                : errors.password.type === "minLength"
-                ? "Password must be at least 4 characters long"
-                : ""}
-            </p>
+            <p className="text-red-500 text-xs italic mb-4">{errors.password.message}</p>
           )}
+
           <div className="items-center text-center pt-4">
             <button
               type="submit"
