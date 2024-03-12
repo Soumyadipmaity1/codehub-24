@@ -12,7 +12,7 @@ import Dashboard from "./pages/Dashboard";
 
 import "./App.css"
 
-
+// import GroupsLogin from "./pages/GroupsLogin/GroupsLogin";
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -48,11 +48,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
     </Routes>
-   
-      
-       
-      
-    
   );
 }
 
