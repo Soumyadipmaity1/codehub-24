@@ -9,6 +9,7 @@ import GroupAllocated from "./pages/GroupAllocated";
 import AddingPeople from "./pages/AddingPeople";
 import Login from "./pages/loginpages/loginpage";
 import Dashboard from "./pages/Dashboard";
+import CodeEditor from "./pages/CodeEditor/CodeEditor";
 
 import "./App.css"
 
@@ -47,6 +48,7 @@ function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
+          <Route path="/" element={<CodeEditor/>} />
     </Routes>
   );
 }
