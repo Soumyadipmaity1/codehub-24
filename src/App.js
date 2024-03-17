@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom"
-import HomePage from './pages/landing/components/HomePage';
-import Error from "./pages/Error";
-import Home from "./pages/Home";
-import Group from "./pages/Group";
-import GroupAllocated from "./pages/GroupAllocated";
-import AddingPeople from "./pages/AddingPeople";
-import Login from "./pages/loginpages/loginpage";
-import Dashboard from "./pages/Dashboard";
+// import HomePage from './pages/landing/components/HomePage';
+// import Error from "./pages/Error";
+// import Home from "./pages/Home";
+// import Group from "./pages/Group";
+// import GroupAllocated from "./pages/GroupAllocated";
+// import AddingPeople from "./pages/AddingPeople";
+// import Login from "./pages/loginpages/loginpage";
+// import Dashboard from "./pages/Dashboard";
 import CodeEditor from "./pages/CodeEditor/CodeEditor";
 
 import "./App.css"
@@ -38,7 +38,7 @@ function App() {
             : <Navigate to="/login" replace />
         }
       /> */}
-      <Route path="/" element={<HomePage />} />
+      {/* <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/Mygroup" element={<Group />} />
           <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
@@ -47,7 +47,7 @@ function App() {
             element={<AddingPeople />}
           />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Error />} />
+          <Route path="*" element={<Error />} /> */}
           <Route path="/" element={<CodeEditor/>} />
     </Routes>
    
