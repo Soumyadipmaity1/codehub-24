@@ -13,7 +13,7 @@ import CodeEditor from "./pages/CodeEditor/CodeEditor";
 
 import "./App.css"
 
-
+// import GroupsLogin from "./pages/GroupsLogin/GroupsLogin";
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -50,11 +50,6 @@ function App() {
           <Route path="*" element={<Error />} />
           <Route path="/" element={<CodeEditor/>} />
     </Routes>
-   
-      
-       
-      
-    
   );
 }
 
