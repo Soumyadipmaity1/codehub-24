@@ -40,13 +40,10 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/Mygroup" element={<Group />} />
-          <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
-          <Route
-            path="/Mygroup/Groupallocate/AddPeople"
-            element={<AddingPeople />}
-          />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Error />} />
+      <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
+      <Route path="/Mygroup/Groupallocate/AddPeople" element={<AddingPeople />}/>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<Error />} />
     </Routes>
    
       

@@ -7,11 +7,11 @@ const groupSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        user:{
+        user:[{ //how many of them are in the group
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "user",
-        },
+        }],
         groupDescription: {
             type: String,
             required: true,
@@ -26,8 +26,7 @@ const groupSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "codeSection", 
         },
-        
     }
 )
 
-module.export = mongoose.model("Group", groupSchema);
+module.exports = mongoose.model("group", groupSchema);
