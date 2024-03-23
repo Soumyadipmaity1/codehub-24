@@ -10,7 +10,6 @@ import AddingPeople from "./pages/AddingPeople";
 import Login from "./pages/loginpages/loginpage";
 import Dashboard from "./pages/Dashboard";
 import CodeEditor from "./pages/CodeEditor/CodeEditor";
-
 import "./App.css"
 
 // import GroupsLogin from "./pages/GroupsLogin/GroupsLogin";
@@ -29,27 +28,28 @@ function App() {
   }, [navigate])
 
   return (
-    <Routes>
-      {/* <Route
-        path="/"
-        element={
-          localStorage.getItem("token")
-            ? <HomePage />
-            : <Navigate to="/login" replace />
-        }
-      /> */}
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/Mygroup" element={<Group />} />
-          <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
-          <Route
-            path="/Mygroup/Groupallocate/AddPeople"
-            element={<AddingPeople />}
-          />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Error />} />
-          <Route path="/" element={<CodeEditor/>} />
-    </Routes>
+    // <Routes>
+    //   {/* <Route
+    //     path="/"
+    //     element={
+    //       localStorage.getItem("token")
+    //         ? <HomePage />
+    //         : <Navigate to="/login" replace />
+    //     }
+    //   /> */}
+    //   <Route path="/" element={<HomePage />} />
+    //   <Route path="/login" element={<Login />} />
+    //   <Route path="/Mygroup" element={<Group />} />
+    //       <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
+    //       <Route
+    //         path="/Mygroup/Groupallocate/AddPeople"
+    //         element={<AddingPeople />}
+    //       />
+    //       <Route path="/dashboard" element={<Dashboard />} />
+    //       <Route path="*" element={<Error />} />
+    //       <Route path="/" element={<CodeEditor/>} />
+    // </Routes>
+    <CodeEditor/>
   );
 }
 
