@@ -49,7 +49,7 @@ function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
-          <Route path="/" element={<CodeEditor/>} />
+          <Route path="/Mygroup/:mygroupId/codeeditor" element={<CodeEditor/>} />
     </Routes>
   );
 }
