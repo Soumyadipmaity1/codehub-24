@@ -17,7 +17,8 @@ import "./App.css"
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const { user } = useSelector((state) => state.profile)
+  
   useEffect(() => {
     const token = localStorage.getItem("token")
     // if (token) {  isko hatae hai
@@ -26,6 +27,7 @@ function App() {
     //   navigate("/login", { replace: true })
     // }
     console.log(token)
+    console.log(user)
   }, [navigate])
 
   return (
@@ -41,7 +43,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/Mygroup" element={<Group />} />
-          <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
+          <Route path="/Mygroup/:mygroupId" element={<GroupAllocated />} />
           <Route
             path="/Mygroup/Groupallocate/AddPeople"
             element={<AddingPeople />}

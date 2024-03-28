@@ -63,7 +63,6 @@ exports.getAllGroups = async (req, res) => {
 exports.verifyGroup = async (req, res) => {
   try {
     const { groupId, userPassKey } = req.body;
-
     if (!groupId || !userPassKey) {
       return res.status(403).send({
         success: false,
@@ -86,7 +85,7 @@ exports.verifyGroup = async (req, res) => {
         message: `Could not match the PassKey`,
       });
     }
-
+    
     return res.status(200).json({
       success: true,
       group: myGroup,

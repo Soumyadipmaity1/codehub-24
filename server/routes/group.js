@@ -10,6 +10,6 @@ const {
 
 router.post("/addGroup", addGroup)
 router.get("/getAllGroups", getAllGroups)
-router.get("/verifyGroup", verifyGroup)
+router.post("/verifyGroup", verifyGroup)
 
 module.exports = router

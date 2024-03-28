@@ -1,6 +1,7 @@
 
 import logo from "./companylogo.svg"
 import hexagon from "./Hexagon.png"
+import { Link } from "react-router-dom";
 
 
 export default function loginpart(){
@@ -21,7 +22,9 @@ return(
         <h1 class="text-6xl font-bold mb-4">Solutions, Today </h1>
 
         <p class="text-2xl mb-8 mt-8">Discover the limitless possibilities of the digital age with RnPsoft.</p>
-        <button class=" bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 px-12 py-2 text-lg mt-12   font-semibold rounded-lg">LOGIN</button>
+        <Link to="/login">
+            <button class=" bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 px-12 py-2 text-lg mt-12   font-semibold rounded-lg">LOGIN</button>
+        </Link>
     </div>
   </div>
 );
