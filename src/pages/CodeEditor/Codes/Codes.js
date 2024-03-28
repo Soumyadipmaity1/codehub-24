@@ -10,10 +10,15 @@ const CodeFile = ({ selectedIndex }) => {
 
   return (
     <div>
+    <div>
       {selectedFile && ( 
         <pre className="p-2 pl-4">{selectedFile.code}</pre>
       )}
     </div>
+    <div className='item-end tet-end pl-[400px] pt-2' >
+                        <button className="text-[#C376FF] relative   bg-[#2E2E2E] p-2 text-xl rounded-md left-[64%] top-[16%] ">Save Changes</button>
+                    </div>
+                    </div>
   );
 };
 
