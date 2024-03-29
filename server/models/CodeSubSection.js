@@ -7,9 +7,18 @@ const CodeSubSection = new mongoose.Schema(
             required: true,
             ref: "user",
         },
-        codeSubSection: [{
+        updatedAt:{
+            type: Date,
+            default: Date.now
+        },
+        description:{
+            type: String,
+            required: true,
+            trim: true,
+       },
+        IndividualCodeSec: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "codeSubSection", 
+            ref: "IndividualCodeSec",
         }],
     }
 )
