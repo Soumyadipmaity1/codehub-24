@@ -8,18 +8,21 @@ import CODES from './SideBar/Mapping';
 export default function CodeEditor() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [openFiles, setOpenFiles] = useState([]);
+    const [textAreaValue, setTextAreaValue] = useState('');
 
     const handleFileSelect = (content) => {
         if (!openFiles.includes(content)) {
             setOpenFiles([...openFiles, content]);
         }
         setSelectedFile(content);
+        setTextAreaValue(CODES[content]);
     };
 
     const handleCloseFile = (file) => {
         setOpenFiles(openFiles.filter((f) => f !== file));
         if (selectedFile === file) {
             setSelectedFile(null);
+            setTextAreaValue('');
         }
     };
 
@@ -28,22 +31,22 @@ export default function CodeEditor() {
             <Navbar />
             <div className="flex justify-between">
                 <Sidebar onFileSelect={handleFileSelect} codes={CODES} />
-                
-                
                 <div className="flex flex-col w-[56%] border-r-2 p-4 border-[#C376FF]">
-               
-                    
-<div className={`flex ${openFiles.length ? 'border-b-2 border-[#C376FF]' : ''}`}>
+                    <div className={`flex ${openFiles.length ? 'border-b-2 border-[#C376FF]' : ''}`}>
                         {openFiles.map((file, index) => (
                              <div key={index} className="px-4 border-r-[1px] border-slate-700 m-1 flex items-center">
                               <span>{file}</span>
                             <button className="ml-2 pl-4" onClick={() => handleCloseFile(file)}>x</button>
                             </div>
                         ))}
-                       
                     </div>
-                    <CodeFile selectedFile={selectedFile} />
-                    
+                    <CodeFile selectedFile={selectedFile} codes={CODES} />
+                    <textarea
+                        className="w-full h-40 bg-black text-white p-2 outline-none"
+                        value={textAreaValue}
+                        onChange={(e) => setTextAreaValue(e.target.value)}
+                        autoFocus 
+                        />
                 </div>
                 <RecentLogs />
             </div>
