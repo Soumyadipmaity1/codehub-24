@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import CODES from '../SideBar/Mapping'; 
+import CODES from '../SideBar/Mapping';
 import CodeFile from '../Codes/Codes';
 
 const Sidebar = ({ onFileSelect }) => {
@@ -29,7 +29,8 @@ const Sidebar = ({ onFileSelect }) => {
   const handleClick = (index) => {
     setActiveButton(index);
     setSelectedFileIndex(index);
-    onFileSelect(CODES[index].title);
+    // onFileSelect(CODES[index].title);
+     onFileSelect(CODES[index]);
   };
 
   const bottommenu = [
@@ -42,14 +43,13 @@ const Sidebar = ({ onFileSelect }) => {
   return (
     <>
       <div>
-<div      className={`bg-[#1C1917] text-zinc-50 z-20 h-[calc(100vh-80px)] flex flex-col justify-between ${
-            open ? "w-[254px]" : "w-[35px]"
+        <div className={`bg-[#1C1917] text-zinc-50 z-20 h-[calc(100vh-80px)] flex flex-col justify-between ${open ? "w-[254px]" : "w-[35px]"
           } duration-300 relative`}
         >
-         <div className="bg-slate-800 rounded-md p-1 mx-1 cursor-pointer my-2 text-center">
-    {!open && <p className="text-xl ">+</p>}
-    {open && <p className="text-xl mx-4">+ <span className=" ">Import File</span></p>}
-</div>
+          <div className="bg-slate-800 rounded-md p-1 mx-1 cursor-pointer my-2 text-center">
+            {!open && <p className="text-xl ">+</p>}
+            {open && <p className="text-xl mx-4">+ <span className=" ">Import File</span></p>}
+          </div>
 
           <div className="border-gray-600 ml-0 p-1 pl-4 border-b-2">
             <div className="p-4 flex items-center">
@@ -71,9 +71,8 @@ const Sidebar = ({ onFileSelect }) => {
             {Menus.map((menu, index) => (
               <div key={index}>
                 <li
-                  className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${
-                    menu.spacing ? "self-end " : "mt-0"
-                  } `}
+                  className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${menu.spacing ? "self-end " : "mt-0"
+                    } `}
                 >
                   {menu.icon && (
                     <img
@@ -123,9 +122,8 @@ const Sidebar = ({ onFileSelect }) => {
             {bottommenu.map((bmenu, index) => (
               <li
                 key={index}
-                className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${
-                  index === activeButton ? "" : ""
-                }`}
+                className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${index === activeButton ? "" : ""
+                  }`}
               >
                 {bmenu.icon && (
                   <img

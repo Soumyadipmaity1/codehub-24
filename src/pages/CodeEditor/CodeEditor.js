@@ -30,11 +30,11 @@ export default function CodeEditor() {
     const [textAreaValue, setTextAreaValue] = useState('');
 
     const handleFileSelect = (content) => {
-        if (!openFiles.includes(content)) {
-            setOpenFiles([...openFiles, content]);
+        if (!openFiles.includes(content.title)) {
+            setOpenFiles([...openFiles, content.title]);
         }
-        setSelectedFile(content);
-        setTextAreaValue(CODES[content]);
+        setSelectedFile(content.title);
+        setTextAreaValue(content.code);
     };
 
     const handleCloseFile = (file) => {

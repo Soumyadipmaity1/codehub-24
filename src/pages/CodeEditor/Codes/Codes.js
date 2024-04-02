@@ -6,13 +6,14 @@ const CodeFile = ({ selectedIndex }) => {
 
   useEffect(() => {
     setSelectedFile(CODES[selectedIndex]);
+    console.log("code of the",CODES[selectedIndex])
   }, [selectedIndex]);
 
   return (
     <div>
       <div>
         {selectedFile && (
-          <p className="p-2 text-red-900 pl-4">{selectedFile.title}</p>
+          <p className="p-2 text-red-900 pl-4">{selectedFile.code}</p>
         )}
       </div>
       <div className='item-end tet-end pl-[400px] pt-2' >
