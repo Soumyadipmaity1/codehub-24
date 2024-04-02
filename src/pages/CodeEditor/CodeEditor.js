@@ -1,52 +1,71 @@
-import React, { useState } from 'react';
-import Navbar from './Navbar/Navbar';
+import React, { useState, useEffect } from 'react';
+import Navbar from '../../components/Navbar/Navbar';
 import Sidebar from './SideBar/SideBar';
 import CodeFile from './Codes/Codes'; 
 import RecentLogs from './RecentLogs/RecentLogs'; 
 import CODES from './SideBar/Mapping'; 
 
+import { useParams } from 'react-router-dom';
+import { getCodes } from '../../services/operations/code';
+
 export default function CodeEditor() {
+    const { mygroupId } = useParams();
+  const [codes, setCodes] = useState([]);
+
+  useEffect(() => {
+    async function fetchGroups() {
+      try {
+        const fetchedcodes = await getCodes(mygroupId);
+        setCodes(fetchedcodes.data);
+        console.log("code hai ye", fetchedcodes.data)
+      } catch (error) {
+        console.error('Error fetching groups:', error);
+      }
+    }
+
+    fetchGroups();
+  }, []);
     const [selectedFile, setSelectedFile] = useState(null);
     const [openFiles, setOpenFiles] = useState([]);
+    const [textAreaValue, setTextAreaValue] = useState('');
 
     const handleFileSelect = (content) => {
-        if (!openFiles.includes(content)) {
-            setOpenFiles([...openFiles, content]);
+        if (!openFiles.includes(content.title)) {
+            setOpenFiles([...openFiles, content.title]);
         }
-        setSelectedFile(content);
+        setSelectedFile(content.title);
+        setTextAreaValue(content.code);
     };
 
     const handleCloseFile = (file) => {
         setOpenFiles(openFiles.filter((f) => f !== file));
         if (selectedFile === file) {
             setSelectedFile(null);
+            setTextAreaValue('');
         }
     };
 
     return (
-        <section className="bg-gray-950 text-white">
+        <section className="bg-gray-950 text-white text-xl">
             <Navbar />
             <div className="flex justify-between">
                 <Sidebar onFileSelect={handleFileSelect} codes={CODES} />
-                
-                <div className="flex flex-col w-[1%] border-r-2 pt-16 border-[#C376FF]"></div>
-                
-                <div className="flex flex-col w-[56%] border-r-2 pt-16 border-[#C376FF]">
-                    <div>
-                        <button className="text-[#C376FF] absolute bg-[#2E2E2E] p-2 text-xl rounded-md left-[64%] top-[16%] ">Save Changes</button>
-                    </div>
-                    
-                    <div className="flex border-b-2 border-[#C376FF]">
-                        {/* Display open file tabs */}
+                <div className="flex flex-col w-[56%] border-r-2 p-4 border-[#C376FF]">
+                    <div className={`flex ${openFiles.length ? 'border-b-2 border-[#C376FF]' : ''}`}>
                         {openFiles.map((file, index) => (
-                             <div key={index} className="px-8 m-1 flex items-center">
+                             <div key={index} className="px-4 border-r-[1px] border-slate-700 m-1 flex items-center">
                               <span>{file}</span>
-                            <button className="ml-2" onClick={() => handleCloseFile(file)}>x</button>
+                            <button className="ml-2 pl-4" onClick={() => handleCloseFile(file)}>x</button>
                             </div>
                         ))}
-
                     </div>
-                    <CodeFile selectedFile={selectedFile} />
+                    <CodeFile selectedFile={selectedFile} codes={CODES} />
+                    <textarea
+                        className="w-full h-40 bg-black text-white p-2 outline-none"
+                        value={textAreaValue}
+                        onChange={(e) => setTextAreaValue(e.target.value)}
+                        autoFocus 
+                        />
                 </div>
                 <RecentLogs />
             </div>

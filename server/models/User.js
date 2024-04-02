@@ -56,6 +56,9 @@ const userSchema = new mongoose.Schema(
     token: {  //use token to take out the user so  that pwd can be updated // this token is used in resetpassword inside controllers  
       type: String,
     },
+    groups: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Group",}],
     // resetPasswordExpires: {  //dont know // this is used in resetpassword inside controllers 
     //   type: Date,
     // },

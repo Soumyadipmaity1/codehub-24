@@ -10,14 +10,14 @@ import AddingPeople from "./pages/AddingPeople";
 import Login from "./pages/loginpages/loginpage";
 import Dashboard from "./pages/Dashboard";
 import CodeEditor from "./pages/CodeEditor/CodeEditor";
-
 import "./App.css"
 
 // import GroupsLogin from "./pages/GroupsLogin/GroupsLogin";
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const { user } = useSelector((state) => state.profile)
+  
   useEffect(() => {
     const token = localStorage.getItem("token")
     // if (token) {  isko hatae hai
@@ -26,6 +26,7 @@ function App() {
     //   navigate("/login", { replace: true })
     // }
     console.log(token)
+    console.log(user)
   }, [navigate])
 
   return (
@@ -41,14 +42,14 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/Mygroup" element={<Group />} />
-          <Route path="/Mygroup/Groupallocate" element={<GroupAllocated />} />
+          <Route path="/Mygroup/:mygroupId" element={<GroupAllocated />} />
           <Route
             path="/Mygroup/Groupallocate/AddPeople"
             element={<AddingPeople />}
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
-          <Route path="/codeeditor" element={<CodeEditor/>} />
+          <Route path="/codeeditorMygroup/:mygroupId/codeeditor" element={<CodeEditor/>} />
     </Routes>
   );
 }

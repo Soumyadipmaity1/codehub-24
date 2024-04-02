@@ -1,4 +1,4 @@
-const mongoose = require ("mongoose");
+const mongoose = require("mongoose");
 
 const groupSchema = new mongoose.Schema(
     {
@@ -7,11 +7,11 @@ const groupSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        user:{
+        user: [{ //how many of them are in the group
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "user",
-        },
+        }],
         groupDescription: {
             type: String,
             required: true,
@@ -22,12 +22,12 @@ const groupSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        codeSection: {
+        individualCodeSec: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "codeSection", 
-        },
-        
+            ref: "individualCodeSec",
+            required: true,
+        }],
     }
 )
 
-module.export = mongoose.model("Group", groupSchema);
+module.exports = mongoose.model("group", groupSchema);

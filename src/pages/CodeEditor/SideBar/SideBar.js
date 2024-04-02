@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import CODES from '../SideBar/Mapping'; 
+import CODES from '../SideBar/Mapping';
 import CodeFile from '../Codes/Codes';
 
 const Sidebar = ({ onFileSelect }) => {
@@ -29,7 +29,8 @@ const Sidebar = ({ onFileSelect }) => {
   const handleClick = (index) => {
     setActiveButton(index);
     setSelectedFileIndex(index);
-    onFileSelect(CODES[index].title);
+    // onFileSelect(CODES[index].title);
+     onFileSelect(CODES[index]);
   };
 
   const bottommenu = [
@@ -42,17 +43,17 @@ const Sidebar = ({ onFileSelect }) => {
   return (
     <>
       <div>
-        <div
-          className={`bg-[#1C1917] text-zinc-50 z-20 h-[calc(100vh-80px)] flex flex-col justify-between ${
-            open ? "w-[254px]" : "w-[35px]"
+        <div className={`bg-[#1C1917] text-zinc-50 z-20 h-[calc(100vh-80px)] flex flex-col justify-between ${open ? "w-[254px]" : "w-[35px]"
           } duration-300 relative`}
         >
-          <div className="bg-slate-800 rounded-md p-1 mx-4 my-2 text-center">
-            <p className={open ? "" : "hidden"}>+ Import File</p>
+          <div className="bg-slate-800 rounded-md p-1 mx-1 cursor-pointer my-2 text-center">
+            {!open && <p className="text-xl ">+</p>}
+            {open && <p className="text-xl mx-4">+ <span className=" ">Import File</span></p>}
           </div>
+
           <div className="border-gray-600 ml-0 p-1 pl-4 border-b-2">
             <div className="p-4 flex items-center">
-              <p className={`ml-2 text-xl ${open ? "" : "hidden"}`}>Explorer</p>
+              <p className={`ml-2 text-xl  ${open ? "" : "hidden"}`}>Explorer</p>
               <img
                 className="h-6 w-6 ml-14 cursor-pointer"
                 src="/images/Add Folder.png"
@@ -70,9 +71,8 @@ const Sidebar = ({ onFileSelect }) => {
             {Menus.map((menu, index) => (
               <div key={index}>
                 <li
-                  className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${
-                    menu.spacing ? "self-end " : "mt-0"
-                  } `}
+                  className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${menu.spacing ? "self-end " : "mt-0"
+                    } `}
                 >
                   {menu.icon && (
                     <img
@@ -84,7 +84,7 @@ const Sidebar = ({ onFileSelect }) => {
                   <NavLink
                     to={menu.to}
                     key={index}
-                    className={`flex-1 ml-2 ${open ? "" : "hidden"}`}
+                    className={`flex-1 ml-2  ${open ? "" : "hidden"}`}
                   >
                     {menu.title}
                   </NavLink>
@@ -105,7 +105,7 @@ const Sidebar = ({ onFileSelect }) => {
                     {menu.submenuItems.map((submenuItem, subIndex) => (
                       <li
                         key={subIndex}
-                        className="flex pt-1 pb-1 pl-2 text-xs bg-[#1C1917] justify-center"
+                        className="flex p-3 border-b-[1px] border-gray-600 text-base bg-[#1C1917] justify-center cursor-pointer"
                         onClick={() => handleClick(subIndex)}
                       >
                         {submenuItem.title}
@@ -122,9 +122,8 @@ const Sidebar = ({ onFileSelect }) => {
             {bottommenu.map((bmenu, index) => (
               <li
                 key={index}
-                className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${
-                  index === activeButton ? "" : ""
-                }`}
+                className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${index === activeButton ? "" : ""
+                  }`}
               >
                 {bmenu.icon && (
                   <img

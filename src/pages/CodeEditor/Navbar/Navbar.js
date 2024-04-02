@@ -11,7 +11,6 @@ const Navbar = () => {
         <div className="text-lg"></div>
       </div>
       <div className="border-b-4 w-full h-3 border-[#C376FF]"></div>
-      
     </nav>
   );
 };

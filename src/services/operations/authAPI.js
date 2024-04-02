@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast"
 
 import { setLoading, setToken } from "../../slices/authSlice"
 // import { resetCart } from "../../slices/cartSlice"
-// import { setUser } from "../../slices/profileSlice"
+import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiConnector"
 import { endpoints } from "../apis"
 
@@ -27,7 +27,7 @@ export function login(email, password, navigate) {
         })
   
         console.log("LOGIN API RESPONSE............", response)
-  
+
         if (!response.data.success) {
           throw new Error(response.data.message)
         }
@@ -36,11 +36,11 @@ export function login(email, password, navigate) {
         // const userImage = response.data?.user?.image
         //   ? response.data.user.image
         //   : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
-        // dispatch(setUser({ ...response.data.user, image: userImage }))
+        dispatch(setUser({ ...response.data.user}))
         localStorage.setItem("token", JSON.stringify(response.data.token))
-        // localStorage.setItem("user", JSON.stringify(response.data.user))  //added bcz after login if refresh the page then login signup invisible
+        localStorage.setItem("user", JSON.stringify(response.data.user))  //added bcz after login if refresh the page then login signup invisible
   
-        navigate("/")
+        navigate("/Mygroup")
       } catch (error) {
         console.log("LOGIN API ERROR............", error)
         toast.error("Login Failed")
@@ -54,10 +54,10 @@ export function login(email, password, navigate) {
   export function logout(navigate) {
     return (dispatch) => {
       dispatch(setToken(null))
-      // dispatch(setUser(null))
+      dispatch(setUser(null))
       // dispatch(resetCart())
       localStorage.removeItem("token")
-      // localStorage.removeItem("user")
+      localStorage.removeItem("user")
       toast.success("Logged Out")
       navigate("/login")
     }

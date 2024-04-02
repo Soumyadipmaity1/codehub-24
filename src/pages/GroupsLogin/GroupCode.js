@@ -6,13 +6,21 @@ import { useForm } from 'react-hook-form';
 export default function GroupCodeForm(){
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const onSubmit = async (data) => {
+      console.log('passkwy submitted');
+      console.log(data);
+      // const email=data.email;
+      // const password=data.password;
+      // console.log(email)
+      // console.log(password)
+      // dispatch(login(email, password, navigate))
+    };
+
     return(
         <div className='m-4 mx-auto'>
         <form
           className="flex flex-col w-full px-10"
-          onSubmit={handleSubmit((data) => {
-            console.log(data); 
-          })}
+          onSubmit={handleSubmit(onSubmit)}
         >
         <div className="flex">
           <div className="mb-2 bg-white flex rounded-lg items-center">
