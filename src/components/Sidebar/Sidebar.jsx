@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { logout } from "../../services/operations/authAPI";
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [activeButton, setActiveButton] = useState(null);
   const [submenuStates, setSubmenuStates] = useState({});
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   const toggleSubmenu = (index) => {
     console.log(`Toggling submenu ${index}`);
@@ -57,10 +63,11 @@ const Sidebar = () => {
 
 
   const bottommenu = [
+  //   {
+  //  title : "Instructions",
+  //  icon : "/images/UserManual.png",
+  //   },
     {
-   title : "Instructions",
-   icon : "/images/UserManual.png",
-    },{
     title : "Logout",
     icon : "/images/LogoutRoundedleft.png"
     },
@@ -121,9 +128,14 @@ const Sidebar = () => {
           <div className="flex-1"></div>
 
           {/* Bottom Menu */}
-          <ul className="pt-2">
+          <ul className=" cursor-pointer"
+          onClick={() => {
+              dispatch(logout(navigate))
+              setOpen(false)
+            }}
+          >
             {bottommenu.map((bmenu, index) => (
-              <li key={index} className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer}
+              <li key={index} className={`flex items-center pl-2 text-xl bg-[#141414] cursor-pointer}
               ${index === activeButton ? 'border-l-4 border-blue-500' : ''}
               `}>
                 {bmenu.icon && (
@@ -145,7 +157,7 @@ const Sidebar = () => {
               !open && "rotate-180"
             }`} />
             <button
-              className={`text-xl whitespace-nowrap ml-4 p-2 ${
+              className={`text-xl whitespace-nowrap ml-4 p-2${
                 !open && "hidden"
               }`}
             >

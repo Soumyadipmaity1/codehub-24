@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const userRoutes = require("./routes/user");
 const groupRoutes = require("./routes/group");
+const codeRoutes = require("./routes/code")
 // const courseRoutes = require("./routes/Course");
 // const paymentRoutes = require("./routes/Payments");
 // const contactUsRoute = require("./routes/Contact");
@@ -43,6 +44,7 @@ app.use(
 // Setting up routes
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/group", groupRoutes);
+app.use("/api/v1/code", codeRoutes);
 // app.use("/api/v1/course", courseRoutes);
 // app.use("/api/v1/payment", paymentRoutes);
 // app.use("/api/v1/reach", contactUsRoute);

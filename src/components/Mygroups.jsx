@@ -25,7 +25,7 @@ export default function Mygroup() {
         console.error('Error fetching groups:', error);
       }
     }
-    
+
     fetchGroups();
   }, []);
 
@@ -35,8 +35,7 @@ export default function Mygroup() {
 
   const handleFormSubmit = async (data, groupId) => {
     const userPassKey = data.userPassKey;
-    const result = await verifyGroup(userPassKey,groupId,navigate)
-    console.log("result aa gaya",result);
+    const result = await verifyGroup(userPassKey, groupId, navigate)
   };
 
   return (
@@ -51,8 +50,8 @@ export default function Mygroup() {
               </div>
               <p className="text-white ml-auto mr-8">Last updated on {groupItem._id}</p>
               {errors[`userPassKey`] && (
-                  <p className="text-red-500 text-xs italic mb-4">{errors[`userPassKey`].message}</p>
-                )}
+                <p className="text-red-500 text-xs italic mb-4">{errors[`userPassKey`].message}</p>
+              )}
               <button className="cursor-pointer" onClick={() => toggleDropdown(index)}>
                 <img
                   src="/images/Downarrow.png"

@@ -1,19 +1,34 @@
-const mongoose = require ("mongoose");
+const mongoose = require("mongoose");
 
 const IndividualCodeSec = new mongoose.Schema(
     {
-       name:{
-            type: String,
-            required: true,
-            trim: true,
-       },
-      
-        Code: {
+
+        codeName: {
             type: String,
             required: true,
             trim: true,
         },
+        updatedAt: {
+            type: Date,
+            default: Date.now
+        },
+        code: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "user",
+        },
+        group: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "group",
+        }
+
     }
 )
 
-module.export = mongoose.model("individualCodeSec",IndividualCodeSec);
+module.exports = mongoose.model("individualCodeSec", IndividualCodeSec);

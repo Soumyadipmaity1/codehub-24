@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
-import Navbar from './Navbar/Navbar';
+import React, { useState, useEffect } from 'react';
+import Navbar from '../../components/Navbar/Navbar';
 import Sidebar from './SideBar/SideBar';
 import CodeFile from './Codes/Codes'; 
 import RecentLogs from './RecentLogs/RecentLogs'; 
 import CODES from './SideBar/Mapping'; 
 
+import { useParams } from 'react-router-dom';
+import { getCodes } from '../../services/operations/code';
+
 export default function CodeEditor() {
+    const { mygroupId } = useParams();
+  const [codes, setCodes] = useState([]);
+
+  useEffect(() => {
+    async function fetchGroups() {
+      try {
+        const fetchedcodes = await getCodes(mygroupId);
+        setCodes(fetchedcodes.data);
+        console.log("code hai ye", fetchedcodes.data)
+      } catch (error) {
+        console.error('Error fetching groups:', error);
+      }
+    }
+
+    fetchGroups();
+  }, []);
     const [selectedFile, setSelectedFile] = useState(null);
     const [openFiles, setOpenFiles] = useState([]);
     const [textAreaValue, setTextAreaValue] = useState('');
