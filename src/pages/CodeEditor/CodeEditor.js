@@ -30,8 +30,8 @@ export default function CodeEditor() {
     const [textAreaValue, setTextAreaValue] = useState('');
 
     const handleFileSelect = (content) => {
-        if (!openFiles.includes(content.title)) {
-            setOpenFiles([...openFiles, content.title]);
+        if (!openFiles.includes(content)) {
+            setOpenFiles([...openFiles, content]);
         }
         setSelectedFile(content.title);
         setTextAreaValue(content.code);
@@ -53,8 +53,8 @@ export default function CodeEditor() {
                 <div className="flex flex-col w-[56%] border-r-2 p-4 border-[#C376FF]">
                     <div className={`flex ${openFiles.length ? 'border-b-2 border-[#C376FF]' : ''}`}>
                         {openFiles.map((file, index) => (
-                             <div key={index} className="px-4 border-r-[1px] border-slate-700 m-1 flex items-center">
-                              <span>{file}</span>
+                             <div key={index} className="px-4 border-r-[1px] border-slate-700 m-1 flex items-center" onClick={() => handleFileSelect(file)}>
+                              <span>{file.title}</span>
                             <button className="ml-2 pl-4" onClick={() => handleCloseFile(file)}>x</button>
                             </div>
                         ))}
