@@ -13,7 +13,6 @@ const GroupAllocated = () => {
     <div className='flex'>
     <Sidebar />
     <Groupallocate/>
-    <h1 className="text-indigo-600 m-12">User {mygroupId}</h1>
     </div>
     </React.Fragment>
   )

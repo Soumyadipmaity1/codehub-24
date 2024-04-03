@@ -4,7 +4,8 @@ import { endpoints } from "../apis"
 
 const {
     GET_CODES_SUMMARY,
-    DELETE_CODE_API
+    DELETE_CODE_API,
+    PUBLISH_CODE_API
   } = endpoints
 
 
@@ -39,6 +40,22 @@ const {
       toast.success("Course Deleted")
     } catch (error) {
       console.log("DELETE COURSE API ERROR............", error)
+      toast.error(error.message)
+    }
+    toast.dismiss(toastId)
+  }
+
+  export const publishCode = async (data) => {
+    const toastId = toast.loading("Loading...")
+    try {
+      const response = await apiConnector("PUT", PUBLISH_CODE_API, data)
+      console.log("PUBLISH COURSE API RESPONSE............", response)
+      if (!response?.data?.success) {
+        throw new Error("Could Not Publish Course")
+      }
+      toast.success("Course PUBLISHED")
+    } catch (error) {
+      console.log("PUBLISH COURSE API ERROR............", error)
       toast.error(error.message)
     }
     toast.dismiss(toastId)
