@@ -26,8 +26,11 @@ const IndividualCodeSec = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "group",
-        }
-
+        },
+        status: {
+            type: String,
+            enum: ["Draft", "Published"],
+          },
     }
 )
 
