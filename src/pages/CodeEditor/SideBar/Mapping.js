@@ -1,7 +1,7 @@
 const CODES = [
     {
         title: "index.html",
-        code: "<body> hi </body>",
+        code: " Hello World! ",
         
     },
     {

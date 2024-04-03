@@ -11,7 +11,6 @@ import { getCodes } from '../../services/operations/code';
 export default function CodeEditor() {
     const { mygroupId } = useParams();
   const [codes, setCodes] = useState([]);
-
   useEffect(() => {
     async function fetchGroups() {
       try {
@@ -49,10 +48,11 @@ export default function CodeEditor() {
         <section className="bg-gray-950 text-white text-xl">
             <Navbar />
             <div className="flex justify-between">
-                <Sidebar onFileSelect={handleFileSelect} codes={CODES} />
-                <div className="flex flex-col w-[56%] border-r-2 p-4 border-[#C376FF]">
+                <Sidebar onFileSelect={handleFileSelect} codes={CODES} openFiles={openFiles} setOpenFiles={setOpenFiles} />
+                <div className="flex flex-col w-[70%] border-r-2 p-4 border-[#C376FF]">
                     <div className={`flex ${openFiles.length ? 'border-b-2 border-[#C376FF]' : ''}`}>
                         {openFiles.map((file, index) => (
+                          console.log("file hai ye", file),
                              <div key={index} className="px-4 border-r-[1px] border-slate-700 m-1 flex items-center" onClick={() => handleFileSelect(file)}>
                               <span>{file.title}</span>
                             <button className="ml-2 pl-4" onClick={() => handleCloseFile(file)}>x</button>

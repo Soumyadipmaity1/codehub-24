@@ -49,9 +49,9 @@ function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
-          <Route path="/codeeditorMygroup/:mygroupId/codeeditor" element={<CodeEditor/>} />
+          <Route path="/Mygroup/:mygroupId/codeeditor" element={<CodeEditor/>} />
     </Routes>
   );
 }
 
-export default App;
+export default App;
