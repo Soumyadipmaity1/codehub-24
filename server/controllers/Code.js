@@ -77,3 +77,29 @@ exports.getCodes = async (req, res) => {
     })
   }
 }
+
+exports.deleteCode = async (req, res) => {
+  try {
+    const { codeId } = req.body
+
+    // Find the course
+    const code = await IndividualCodeSec.findById(codeId)
+    if (!code) {
+      return res.status(404).json({ message: "Code not found" })
+    }
+
+    await IndividualCodeSec.findByIdAndDelete(codeId)
+
+    return res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    })
+  }
+}

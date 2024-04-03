@@ -3,7 +3,8 @@ import { apiConnector } from "../apiConnector"
 import { endpoints } from "../apis"
 
 const {
-    GET_CODES_SUMMARY
+    GET_CODES_SUMMARY,
+    DELETE_CODE_API
   } = endpoints
 
 
@@ -25,4 +26,20 @@ const {
     }
     toast.dismiss(toastId)
     return result
+  }
+
+  export const deleteCode = async (data) => {
+    const toastId = toast.loading("Loading...")
+    try {
+      const response = await apiConnector("DELETE", DELETE_CODE_API, data)
+      console.log("DELETE COURSE API RESPONSE............", response)
+      if (!response?.data?.success) {
+        throw new Error("Could Not Delete Course")
+      }
+      toast.success("Course Deleted")
+    } catch (error) {
+      console.log("DELETE COURSE API ERROR............", error)
+      toast.error(error.message)
+    }
+    toast.dismiss(toastId)
   }
