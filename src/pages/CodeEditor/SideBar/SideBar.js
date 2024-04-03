@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import CODES from '../SideBar/Mapping';
+// import CODES from '../SideBar/Mapping';
 import CodeFile from '../Codes/Codes';
 
-const Sidebar = ({ onFileSelect }) => {
+const Sidebar = ({ onFileSelect, codes }) => {
   const [open, setOpen] = useState(true);
   const [activeButton, setActiveButton] = useState(null);
   const [submenuOpen, setSubmenuOpen] = useState(false);
@@ -18,8 +18,8 @@ const Sidebar = ({ onFileSelect }) => {
       title: "Folder",
       icon: "/images/Folder.png",
       submenu: true,
-      submenuItems: CODES.map((code) => ({
-        title: code.title,
+      submenuItems: codes.map((code) => ({
+        title: code.codeName,
         code: code.code,
       })),
       font: "font-sans",
@@ -29,8 +29,7 @@ const Sidebar = ({ onFileSelect }) => {
   const handleClick = (index) => {
     setActiveButton(index);
     setSelectedFileIndex(index);
-    // onFileSelect(CODES[index].title);
-     onFileSelect(CODES[index]);
+    onFileSelect(codes[index]);
   };
 
   const bottommenu = [
@@ -85,17 +84,18 @@ const Sidebar = ({ onFileSelect }) => {
                     to={menu.to}
                     key={index}
                     className={`flex-1 ml-2  ${open ? "" : "hidden"}`}
+                    onClick={toggleSubmenu}
                   >
                     {menu.title}
                   </NavLink>
                   {menu.submenu && open && (
-                    <div className="mr-2 mt-2">
+                    <div className="mr-2 mt-2" >
                       <img
                         src="/images/Downarrow.png"
                         alt="arrow"
                         className={`${submenuOpen ? "rotate-180 cursor-pointer" : ""}`}
                         style={{ top: "5px", height: "15px", width: "20px" }}
-                        onClick={toggleSubmenu}
+                        
                       />
                     </div>
                   )}

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import NavbarPic from "./Navbar/navbar_pic.png";
 import { useParams } from 'react-router-dom';
-import { getCodes } from '../services/operations/code';
+import { getCodes, deleteCode, publishCode } from '../services/operations/code';
 import { NavLink, Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 
 
 export default function Groupallocate() {
   const { mygroupId } = useParams();
   const [codes, setCodes] = useState([]);
+  const { user } = useSelector((state) => state.profile)
+
 
   useEffect(() => {
     async function fetchGroups() {
@@ -30,11 +33,42 @@ export default function Groupallocate() {
     setShowDropdown(!showDropdown);
   };
 
-  const recentLogs = [
-    { projectName: 'Project A', duration: '2 hours', logInfo: 'Log information A', name: 'John Doe' },
-    { projectName: 'Project B', duration: '1 hour', logInfo: 'Log information B', name: 'Jane Doe' },
+  // const handleCodeDelete = async (codeId) => {
+  //   // setLoading(true)
+  //   await deleteCode({ codeId: codeId })
+  //   // setLoading(false)
+  // }
+  const handleCodeDelete = async (codeId) => {
+    try {
+      await deleteCode({ codeId: codeId });
+      // Filter out the deleted code from the codes array
+      const updatedCodes = codes.filter(code => code._id !== codeId);
+      // Update the state with the filtered array
+      setCodes(updatedCodes);
+    } catch (error) {
+      console.error('Error deleting code:', error);
+    }
+  }
 
-  ];
+  const handleCodePublished = async (codeId) => {
+    try {
+      await publishCode({ codeId: codeId });
+      
+      // Update the codes state after publishing
+      setCodes(prevCodes => {
+        // Map over the previous codes and update the status of the published code
+        return prevCodes.map(code => {
+          if (code._id === codeId) {
+            return { ...code, status: "Published" };
+          }
+          return code;
+        });
+      });
+    } catch (error) {
+      console.error('Error publishing code:', error);
+    }
+  }
+
 
   return (
     <>
@@ -57,7 +91,7 @@ export default function Groupallocate() {
                 <th className=" py-2 text-left p-5">Project Name</th>
                 <th className=" py-2 text-left p-5">Duration</th>
                 <th className=" py-2 text-left p-5">Editor Name</th>
-                <th className=" py-2 text-left p-5 ">Name
+                <th className=" py-2 text-left p-5 ">File Name
                 </th>
               </tr>
             </thead>
@@ -71,32 +105,41 @@ export default function Groupallocate() {
 
                 // Convert milliseconds to hours
                 const durationInHours = durationInMilliseconds / (1000 * 60 * 60);
-
-                return (
-                  <tr key={index} className="bg-black text-white">
-                    <td className="py-2 p-5 flex items-center">
-                      <p className='w-8 h-8 bg-purple-500 rounded-full p-1 flex items-center justify-center text-white'>
-                        {log.user.firstName.charAt(0).toUpperCase()}
-                      </p>
-                      {log.group.groupName}
-                    </td>
-                    <td className="py-2 p-5">{durationInHours.toFixed(2)} hours</td> {/* Display duration in hours */}
-                    <td className="py-2 p-5">{log.user.firstName}</td>
-                    <td className="py-2 p-5 flex">
-                      {log.codeName}
-                      <Link to={`/Mygroup/${mygroupId}/codeeditor`} className='ml-8 cursor-pointer'>
-                        <img src='/images/Create.png' alt='create' className='w-5 h-5 cursor-pointer' />
-                      </Link>
-                      <img src='/images/Trash.png' alt='trash' className='w-5 h-5 ml-8 cursor-pointer text-align' />
-                    </td>
-                  </tr>
-                );
+                if ((log.status === "Published" && user.accountType === "Student") || user.accountType === "Admin") {
+                  return (
+                    <tr key={index} className="bg-black text-white" >
+                      <td className="py-2 p-5 flex items-center">
+                        <p className='w-8 h-8 mr-1 bg-purple-500 rounded-full p-1 flex items-center justify-center text-white'>
+                          {log.user.firstName.charAt(0).toUpperCase()}
+                        </p>
+                        {log.group.groupName}
+                      </td>
+                      <td className="py-2 p-5">{durationInHours.toFixed(2)} hours</td> {/* Display duration in hours */}
+                      <td className="py-2 p-5">{log.user.firstName}</td>
+                      <td className="py-2 p-5 flex">
+                        {log.codeName}
+                        <Link to={`/Mygroup/${mygroupId}/codeeditor`} className='ml-8 cursor-pointer'>
+                          <img src='/images/Create.png' alt='create' className='w-5 h-5 cursor-pointer' />
+                        </Link>
+                        {user.accountType === "Admin" &&
+                          <img src='/images/Trash.png' alt='trash' className='w-5 h-5 ml-8 cursor-pointer text-align' onClick={() => handleCodeDelete(log._id)} />
+                        }
+                        {user.accountType === "Admin" && log.status === "Draft" &&
+                          <div className='w-5 h-5 ml-8 cursor-pointer text-align' onClick={() => handleCodePublished(log._id)}>
+                            Publish</div>
+                        }
+                      </td>
+                    </tr>
+                  );
+                } else {
+                  return null;
+                }
               })}
 
             </tbody>
           </table>
         </div>
-      </div>
+      </div >
     </>
   );
 }

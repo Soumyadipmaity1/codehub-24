@@ -47,7 +47,7 @@ function App() {
             path="/Mygroup/Groupallocate/AddPeople"
             element={<AddingPeople />}
           />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="*" element={<Error />} />
           <Route path="/codeeditorMygroup/:mygroupId/codeeditor" element={<CodeEditor/>} />
     </Routes>
