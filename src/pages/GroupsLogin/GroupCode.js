@@ -7,8 +7,8 @@ export default function GroupCodeForm(){
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-      console.log('passkwy submitted');
-      console.log(data);
+      // console.log('passkwy submitted');
+      // console.log(data);
       // const email=data.email;
       // const password=data.password;
       // console.log(email)
