@@ -36,8 +36,8 @@ const Sidebar = ({ onFileSelect, openFiles, setOpenFiles }) => {
       title: "Folder",
       icon: "/images/Folder.png",
       submenu: true,
-      submenuItems: codes.map((code) => ({
-        title: code.codeName,
+      submenuItems: CODES.map((code) => ({
+        title: code.title,
         code: code.code,
       })),
       font: "font-sans",
@@ -47,7 +47,7 @@ const Sidebar = ({ onFileSelect, openFiles, setOpenFiles }) => {
   const handleClick = (index) => {
     setActiveButton(index);
     setSelectedFileIndex(index);
-    onFileSelect(codes[index]);
+    onFileSelect(CODES[index]);
   };
 
   const bottommenu = [
@@ -81,6 +81,7 @@ const Sidebar = ({ onFileSelect, openFiles, setOpenFiles }) => {
               </p>
               <button
                 className=" ml-auto cursor-pointer"
+    //Input filed button to add new file
                 onClick={handleAddInputField}
               >
                 <img src="/images/Add File.png" className="w-6 h-6" />
@@ -107,12 +108,11 @@ const Sidebar = ({ onFileSelect, openFiles, setOpenFiles }) => {
                     to={menu.to}
                     key={index}
                     className={`flex-1 ml-2  ${open ? "" : "hidden"}`}
-                    onClick={toggleSubmenu}
                   >
                     {menu.title}
                   </NavLink>
                   {menu.submenu && open && (
-                    <div className="mr-2 mt-2" >
+                    <div className="mr-2 mt-2">
                       <img
                         src="/images/Downarrow.png"
                         alt="arrow"
@@ -120,7 +120,7 @@ const Sidebar = ({ onFileSelect, openFiles, setOpenFiles }) => {
                           submenuOpen ? "rotate-180 cursor-pointer" : ""
                         }`}
                         style={{ top: "5px", height: "15px", width: "20px" }}
-                        
+                        onClick={toggleSubmenu}
                       />
                     </div>
                   )}
@@ -142,7 +142,7 @@ const Sidebar = ({ onFileSelect, openFiles, setOpenFiles }) => {
             ))}
           </ul>
 
-          {/* --------------------------------------Render input fields ----------------------------------------------*/}
+          {/* --------------------------------------Render Inputfields ----------------------------------------------*/}
           {open && (
             <div className="flex flex-col p-2 border-b-[1px] justify-center items-center border-gray-600 text-base bg-[#1C1917]  cursor-pointer">
               {inputFields.map((field, index) => (
