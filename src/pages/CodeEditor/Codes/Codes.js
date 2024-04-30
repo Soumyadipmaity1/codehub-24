@@ -6,7 +6,7 @@ const CodeFile = ({ selectedIndex }) => {
 
   useEffect(() => {
     setSelectedFile(CODES[selectedIndex]);
-    console.log("code of the",CODES[selectedIndex])
+    // console.log("code of the",CODES[selectedIndex])
   }, [selectedIndex]);
 
   return (

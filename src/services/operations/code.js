@@ -15,12 +15,12 @@ const {
     let result
     try {
       const response = await apiConnector("POST", GET_CODES_SUMMARY ,{groupId})
-      console.log("code vale ke niche ji",response);
+      // console.log("code vale ke niche ji",response);
       if (!response?.data?.success) {
         throw new Error("Could Not Fetch codes") //it is only error if no response is taken
       }
       result = response.data
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.log("GET_CODES_SUMMARY API ERROR............", error)
       toast.error(error.message)

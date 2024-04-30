@@ -18,7 +18,7 @@ export default function Groupallocate() {
       try {
         const fetchedcodes = await getCodes(mygroupId);
         setCodes(fetchedcodes.data);
-        console.log("code hai ye", fetchedcodes.data)
+        // console.log("code hai ye", fetchedcodes.data)
       } catch (error) {
         console.error('Error fetching groups:', error);
       }
