@@ -16,16 +16,19 @@ export default function CodeEditor() {
     useEffect(() => {
         async function fetchGroups() {
             try {
-                const fetchedcodes = await getCodes(mygroupId);
-                setCodes(fetchedcodes.data);
-                console.log("code hai ye", fetchedcodes.data);
+                const fetchedCodes = await getCodes(mygroupId);
+                // Filter out only the published codes
+                const publishedCodes = fetchedCodes.data.filter(code => code.status === "Published");
+                // Set the filtered published codes to the state
+                setCodes(publishedCodes);
+                console.log("Published codes:", publishedCodes);
             } catch (error) {
                 console.error('Error fetching groups:', error);
             }
         }
-
         fetchGroups();
     }, []);
+    
 
     const handleFileSelect = (content) => {
         if (!openFiles.find(file => file._id === content._id)) {

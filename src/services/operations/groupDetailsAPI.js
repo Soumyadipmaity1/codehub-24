@@ -33,13 +33,13 @@ export const getAllGroups = async () => {
     let result
     try {
       const response = await apiConnector("POST", GET_VERIFIED_GROUP_API ,{userPassKey, groupId})
-      console.log("get ke niche ji",response);
+      // console.log("get ke niche ji",response);
       if (!response?.data?.success) {
         throw new Error("Could Not Fetch Group") //it is only error if no response is taken
       }
       navigate(`/Mygroup/${groupId}`)
       result = response.data
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.log("GET_ALL_GROUP_API API ERROR............", error)
       toast.error(error.message)
