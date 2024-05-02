@@ -65,7 +65,7 @@ export default function Login() {
             <input
               type="text"
               {...register("email", { required: true })}
-              placeholder="email"
+              placeholder="Email"
               className={`appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                 errors.email && "border-red-500"
               }`}

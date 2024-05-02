@@ -6,7 +6,7 @@ export default function footer(){
 
 return(
 
-<footer class="w-full bg-[#020319] md:px-4 pt-10 flex font-medium flex-row flex-wrap justify-between">
+<footer class="w-full bg-[#020319] md:px-4 mt-16 pt-10 flex font-medium flex-row flex-wrap justify-between">
   <div class="w-96 px-10">
     <div class="flex flex-wrap ">
 <img class="w-44 pb-5" src={logo} alt="" />
