@@ -10,7 +10,20 @@ import { useSelector } from "react-redux";
 
 export default function CodeEditor() {
     const { mygroupId } = useParams();
-    const [codes, setCodes] = useState([]);
+  const [codes, setCodes] = useState([]);
+  useEffect(() => {
+    async function fetchGroups() {
+      try {
+        const fetchedcodes = await getCodes(mygroupId);
+        setCodes(fetchedcodes.data);
+        console.log("code hai ye", fetchedcodes.data)
+      } catch (error) {
+        console.error('Error fetching groups:', error);
+      }
+    }
+
+    fetchGroups();
+  }, []);
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFileId, setSelectedFileId] = useState(null);
     const [openFiles, setOpenFiles] = useState([]);
@@ -53,10 +66,13 @@ export default function CodeEditor() {
 
 
     const handleFileSelect = (content) => {
-        if (!openFiles.find(file => file._id === content._id)) {
+
+       
+
+        if (!openFiles.includes(content)) {
             setOpenFiles([...openFiles, content]);
         }
-        setSelectedFile(content.codeName);
+        setSelectedFile(content.title);
         setTextAreaValue(content.code);
         setSelectedFileId(content._id);
     };
