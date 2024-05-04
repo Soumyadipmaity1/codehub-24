@@ -4,13 +4,12 @@ const IndividualCodeSec = require("../models/IndividualCodeSec");
 exports.createCode = async (req, res) => {
   try {
     // const userId = req.user.id
-    const { codeName, code, group, user, status } = req.body
+    const { codeName, code, group, user } = req.body
     if (
       !codeName ||
       !code ||
       !group ||
-      !user ||
-      !status
+      !user 
     ) {
       return res.status(403).send({
         success: false,
@@ -23,17 +22,15 @@ exports.createCode = async (req, res) => {
       code,
       group,
       user,
-      status
+      status: "Draft",
     })
     
 
-    // Add the rating and review to the course
     await Group.findByIdAndUpdate(group, {
       $push: {
         individualCodeSec: CodeSec,
       },
     })
-    //   await courseDetails.save()//not understand
 
     return res.status(201).json({
       success: true,
@@ -49,6 +46,70 @@ exports.createCode = async (req, res) => {
     })
   }
 }
+
+exports.updateCode = async (req, res) => {
+  try {
+    // const userId = req.user.id
+    const { codeId,  group, user, code } = req.body
+    console.log("ka hua ",codeId, code, group, user)
+    if (
+      !codeId ||
+      !code ||
+      !group ||
+      !user 
+    ) {
+      return res.status(403).send({
+        success: false,
+        message: "All Fields are required",
+      })
+    }
+
+    const CodeSec = await IndividualCodeSec.findByIdAndUpdate(codeId, {
+      code,
+      user,
+      status: "Draft",
+    })
+    return res.status(201).json({
+      success: true,
+      message: "CodeSec updated successfully",
+      CodeSec,
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    })
+  }
+}
+
+exports.isIdPresent = async (req, res) => {
+  try {
+    const { codeId } = req.body
+    const allCodes = await IndividualCodeSec.findById(codeId);
+    if (allCodes) {
+      res.status(200).json({
+        success: true,
+        data: true,
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        data: false,
+      })
+    }
+
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve the code id",
+      error: error.message,
+    })
+  }
+}
+
 
 exports.getCodes = async (req, res) => {
   try {
@@ -136,85 +197,3 @@ exports.publishCode = async (req, res) => {
   }
 }
 
-
-
-exports.categoryPageDetails = async (req, res) => {
-  try {
-    const { categoryId } = req.body
-
-    // Get courses for the specified category
-    const selectedCategory = await Category.findById(categoryId)
-      .populate({
-        path: "courses",
-        match: { status: "Published" },// dot know
-        populate: "ratingAndReviews",
-      })
-      .exec()
-
-    console.log("SELECTED COURSE", selectedCategory)
-
-
-    // Handle the case when the category is not found
-    if (!selectedCategory) {
-      console.log("Category not found.")
-      return res
-        .status(404)
-        .json({ success: false, message: "Category not found" })
-    }
-
-
-    // Handle the case when there are no courses
-    if (selectedCategory.courses.length === 0) {
-      console.log("No courses found for the selected category.")
-      return res.status(404).json({
-        success: false,
-        message: "No courses found for the selected category.",
-      })
-    }
-
-
-
-    // Get courses for other categories for marketing purpose
-    const categoriesExceptSelected = await Category.find({
-      _id: { $ne: categoryId }, // not equal to category id
-    })
-    let differentCategory = await Category.findOne(
-      categoriesExceptSelected[getRandomInt(categoriesExceptSelected.length)] //for only one course
-        ._id
-    )
-      .populate({
-        path: "courses",
-        match: { status: "Published" },
-      })
-      .exec()
-    console.log()
-
-
-    // Get top-selling courses across all categories
-    const allCategories = await Category.find()
-      .populate({
-        path: "courses",
-        match: { status: "Published" },
-      })
-      .exec()
-    const allCourses = allCategories.flatMap((category) => category.courses) //method to extract all the individual courses from the array of categories. This results in an array of all the courses across all categories.
-    const mostSellingCourses = allCourses
-      .sort((a, b) => b.sold - a.sold)//not understood
-      .slice(0, 10) // for top 10 course
-
-    res.status(200).json({
-      success: true,
-      data: {
-        selectedCategory,
-        differentCategory,
-        mostSellingCourses,
-      },
-    })
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-      error: error.message,
-    })
-  }
-}

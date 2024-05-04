@@ -73,11 +73,11 @@ export default function Groupallocate() {
   return (
     <>
       <div className={`bg-black items-center h-[calc(100vh-80px)] w-screen `}>
-        <div className='flex'>
-          <p className="text-2xl p-5 mt-0 text-white">RnPsoft{window.location.pathname}</p>
-          <NavLink to="/Mygroup/Groupallocate/AddPeople" className="bg-[#1C1917] text-[#C376FF]	mt-4 px-4  h-12 w-36 ml-auto mr-16 py-2 rounded hover:border-[#C376FF] border-black border-2">
-            Add People
-          </NavLink>
+        <div className='flex justify-between items-center'>
+          <p className="text-2xl pt-2 ml-5 mt-0 text-white">RnPsoft{window.location.pathname}</p>
+          <Link to={`/Mygroup/${mygroupId}/codeeditor`} className="bg-[#1C1917] text-[#C376FF]	my-4 px-4  ml-auto mr-16 py-2 rounded hover:border-[#C376FF] border-black border-2">
+            Codes
+          </Link>
         </div>
 
         <hr className="w-11/12 h-0 ml-auto mr-auto border-1 rounded bg-[#989898]"></hr>
@@ -91,14 +91,13 @@ export default function Groupallocate() {
                 <th className=" py-2 text-left p-5">Project Name</th>
                 <th className=" py-2 text-left p-5">Duration</th>
                 <th className=" py-2 text-left p-5">Editor Name</th>
-                <th className=" py-2 text-left p-5 ">File Name
-                </th>
+                <th className=" py-2 text-left p-5 ">File Name</th>
+                <th className=" py-2 text-left pl-10 ">Edits</th>
               </tr>
             </thead>
 
             <tbody>
               {codes.map((log, index) => {
-                // Calculate the duration in milliseconds
                 const updatedAt = new Date(log.updatedAt);
                 const now = new Date();
                 const durationInMilliseconds = now - updatedAt;
@@ -116,9 +115,12 @@ export default function Groupallocate() {
                       </td>
                       <td className="py-2 p-5">{durationInHours.toFixed(2)} hours</td> {/* Display duration in hours */}
                       <td className="py-2 p-5">{log.user.firstName}</td>
-                      <td className="py-2 p-5 flex">
+                      <td className="py-2 p-2">
                         {log.codeName}
-                        <Link to={`/Mygroup/${mygroupId}/codeeditor`} className='ml-8 cursor-pointer'>
+                    
+                      </td>
+                      <td className="py-2 p-2 flex">
+                      <Link to={`/Mygroup/${mygroupId}/codeeditor`} className='ml-8 cursor-pointer'>
                           <img src='/images/Create.png' alt='create' className='w-5 h-5 cursor-pointer' />
                         </Link>
                         {user.accountType === "Admin" &&

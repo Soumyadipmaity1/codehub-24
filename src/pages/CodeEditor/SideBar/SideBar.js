@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-// import CODES from '../SideBar/Mapping';
-import CodeFile from '../Codes/Codes';
 
 const Sidebar = ({ onFileSelect, codes }) => {
   const [open, setOpen] = useState(true);
   const [activeButton, setActiveButton] = useState(null);
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
+  const [newFileName, setNewFileName] = useState('');
 
   const toggleSubmenu = () => {
     setSubmenuOpen(!submenuOpen);
@@ -32,6 +31,14 @@ const Sidebar = ({ onFileSelect, codes }) => {
     onFileSelect(codes[index]);
   };
 
+  const addNewFile = () => {
+    if (newFileName.trim() !== '') {
+      const newFile = { _id: 1, codeName: newFileName, code: '' };
+      onFileSelect(newFile);
+      setNewFileName('');
+    }
+  };
+
   const bottommenu = [
     {
       title: "Logout",
@@ -45,27 +52,18 @@ const Sidebar = ({ onFileSelect, codes }) => {
         <div className={`bg-[#1C1917] text-zinc-50 z-20 h-[calc(100vh-80px)] flex flex-col justify-between ${open ? "w-[254px]" : "w-[35px]"
           } duration-300 relative`}
         >
-          <div className="bg-slate-800 rounded-md p-1 mx-1 cursor-pointer my-2 text-center">
-            {!open && <p className="text-xl ">+</p>}
-            {open && <p className="text-xl mx-4">+ <span className=" ">Import File</span></p>}
-          </div>
-
-          <div className="border-gray-600 ml-0 p-1 pl-4 border-b-2">
-            <div className="p-4 flex items-center">
-              <p className={`ml-2 text-xl  ${open ? "" : "hidden"}`}>Explorer</p>
-              <img
-                className="h-6 w-6 ml-14 cursor-pointer"
-                src="/images/Add Folder.png"
-                alt="Add Folder"
+          {open && (
+            <div className="pl-4 mt-4 pr-4">
+              <input
+                type="text"
+                placeholder="Enter file name"
+                className="w-full bg-black text-white p-2 outline-none border-b-2 border-gray-600"
+                value={newFileName}
+                onChange={(e) => setNewFileName(e.target.value)}
               />
-
-              <img
-                className="h-6 w-6 ml-auto cursor-pointer"
-                src="/images/Add File.png"
-                alt="Add File"
-              />
+              <button className="w-full mt-2 bg-[#141414] text-xl text-left text-zinc-50 py-1 px-4" onClick={addNewFile}>Add File</button>
             </div>
-          </div>
+          )}
           <ul className="pt-2">
             {Menus.map((menu, index) => (
               <div key={index}>
@@ -95,7 +93,7 @@ const Sidebar = ({ onFileSelect, codes }) => {
                         alt="arrow"
                         className={`${submenuOpen ? "rotate-180 cursor-pointer" : ""}`}
                         style={{ top: "5px", height: "15px", width: "20px" }}
-                        
+
                       />
                     </div>
                   )}
@@ -118,29 +116,7 @@ const Sidebar = ({ onFileSelect, codes }) => {
           </ul>
           <div className="flex-1"></div>
           {/* Bottom Menu */}
-          <ul className="pt-2">
-            {bottommenu.map((bmenu, index) => (
-              <li
-                key={index}
-                className={`flex pt-2 pl-2 text-xl bg-[#141414] cursor-pointer ${index === activeButton ? "" : ""
-                  }`}
-              >
-                {bmenu.icon && (
-                  <img
-                    className="h-6 w-6 mr-2 cursor-pointer"
-                    src={bmenu.icon}
-                    alt="icon"
-                  />
-                )}
-                <span
-                  className={`flex-1 ml-2 ${open ? "" : "hidden"}`}
-                  onClick={() => handleClick(index)}
-                >
-                  {bmenu.title}
-                </span>
-              </li>
-            ))}
-          </ul>
+          
           <div className="flex items-center bg-[#141414]" onClick={() => setOpen(!open)}>
             <img
               src="/images/Double Left.png"
