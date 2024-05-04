@@ -3,10 +3,53 @@ import { apiConnector } from "../apiConnector"
 import { endpoints } from "../apis"
 
 const {
+    GET_ID_PRESENT,
     GET_CODES_SUMMARY,
     DELETE_CODE_API,
-    PUBLISH_CODE_API
+    PUBLISH_CODE_API,
+    CREATE_CODE_API,
+    UPDATE_CODE_API,
   } = endpoints
+
+  export const createCode = async (codeName, code, group, user, codeId) => {
+    const toastId = toast.loading("Loading...");
+    let result;
+
+    try {
+        const codeExists =await checkCodeExists(codeId);
+        if (codeExists) {
+            const response = await apiConnector("PUT", UPDATE_CODE_API, { codeId, group, user, code });
+            if (!response?.data?.success) {
+                throw new Error("Could not update code");
+            }
+            result = response.data;
+        } else {
+            const response = await apiConnector("POST", CREATE_CODE_API, { group, user, codeName, code });
+            if (!response?.data?.success) {
+                throw new Error("Could not create code");
+            }
+            result = response.data;
+        }
+    } catch (error) {
+        console.error("Error in createCode:", error);
+        toast.error(error.message);
+    }
+
+    toast.dismiss(toastId);
+    return result;
+};
+
+
+const checkCodeExists = async (codeId) => {
+  try {
+      const response = await apiConnector("POST", GET_ID_PRESENT, { codeId });
+      return response?.data?.success;
+  } catch (error) {
+      console.error("Error checking code existence:", error);
+      return false;
+  }
+};
+
 
 
   export const getCodes = async (groupId) => {
@@ -15,12 +58,12 @@ const {
     let result
     try {
       const response = await apiConnector("POST", GET_CODES_SUMMARY ,{groupId})
-      // console.log("code vale ke niche ji",response);
+      console.log("code vale ke niche ji",response);
       if (!response?.data?.success) {
         throw new Error("Could Not Fetch codes") //it is only error if no response is taken
       }
       result = response.data
-      // console.log(result);
+      console.log(result);
     } catch (error) {
       console.log("GET_CODES_SUMMARY API ERROR............", error)
       toast.error(error.message)
