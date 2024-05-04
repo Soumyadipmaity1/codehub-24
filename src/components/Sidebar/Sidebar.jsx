@@ -14,7 +14,7 @@ const Sidebar = () => {
 
 
   const toggleSubmenu = (index) => {
-    // console.log(`Toggling submenu ${index}`);
+    console.log(`Toggling submenu ${index}`);
     setSubmenuStates((prevStates) => ({
       ...prevStates,
       [index]: !prevStates[index],
