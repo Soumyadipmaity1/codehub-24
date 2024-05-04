@@ -1,41 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Sidebar from './SideBar/SideBar';
-import CodeFile from './Codes/Codes';
-import RecentLogs from './RecentLogs/RecentLogs';
 import { useParams } from 'react-router-dom';
-import { getCodes, createCode } from '../../services/operations/code';
+import { getCodes, createCode } from '../../services/operations/code'; // Import pushCode from your code service
 import { useSelector } from "react-redux";
-
 
 export default function CodeEditor() {
     const { mygroupId } = useParams();
-  const [codes, setCodes] = useState([]);
-  useEffect(() => {
-    async function fetchGroups() {
-      try {
-        const fetchedcodes = await getCodes(mygroupId);
-        setCodes(fetchedcodes.data);
-        console.log("code hai ye", fetchedcodes.data)
-      } catch (error) {
-        console.error('Error fetching groups:', error);
-      }
-    }
-
-    fetchGroups();
-  }, []);
+    const [codes, setCodes] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedFileId, setSelectedFileId] = useState(null);
     const [openFiles, setOpenFiles] = useState([]);
     const [textAreaValue, setTextAreaValue] = useState('');
+    const [selectedFileId, setSelectedFileId] = useState(null);
     const { user } = useSelector((state) => state.profile)
-
+    const [fileClosed, setFileClosed] = useState(false);
 
     useEffect(() => {
         async function fetchGroups() {
             try {
                 const fetchedCodes = await getCodes(mygroupId);
+                // Filter out only the published codes
                 const publishedCodes = fetchedCodes.data.filter(code => code.status === "Published");
+                // Set the filtered published codes to the state
                 setCodes(publishedCodes);
                 console.log("Published codes:", publishedCodes);
             } catch (error) {
@@ -44,8 +30,9 @@ export default function CodeEditor() {
         }
 
         fetchGroups();
-    }, []);
+    }, [mygroupId]);
 
+    // Function to push code
     const pushCodeToServer = async (codeName, code, group, user, codeId) => {
         try {
             await createCode(codeName, code, group, user._id, codeId);
@@ -56,6 +43,11 @@ export default function CodeEditor() {
         }
     };
 
+    const handleCloseFile = (file) => {
+        setOpenFiles(openFiles.filter((f) => f._id !== file._id));
+        setFileClosed(true);
+    };
+
     const handleSaveCode = () => {
         const codeName = selectedFile;
         const code = textAreaValue;
@@ -64,24 +56,13 @@ export default function CodeEditor() {
         pushCodeToServer(codeName, code, group, user, codeId);
     };
 
-
     const handleFileSelect = (content) => {
-
-       
-
         if (!openFiles.includes(content)) {
             setOpenFiles([...openFiles, content]);
         }
-        setSelectedFile(content.title);
+        setSelectedFile(content.codeName);
         setTextAreaValue(content.code);
         setSelectedFileId(content._id);
-    };
-
-    const [fileClosed, setFileClosed] = useState(false);
-
-    const handleCloseFile = (file) => {
-        setOpenFiles(openFiles.filter((f) => f._id !== file._id));
-        setFileClosed(true);
     };
 
     useEffect(() => {
@@ -99,7 +80,6 @@ export default function CodeEditor() {
         }
     }, [fileClosed, openFiles]);
 
-
     return (
         <section className="bg-gray-950 text-white text-xl">
             <Navbar />
@@ -115,9 +95,8 @@ export default function CodeEditor() {
                                 </div>
                             ))}
                         </div>
-                        <div onClick={handleSaveCode}>Save</div>
+                        <div onClick={handleSaveCode} className=' cursor-pointer'>Save</div>
                     </div>
-
                     <textarea
                         className="w-full h-full bg-black text-white p-4 outline-none"
                         value={textAreaValue}
@@ -129,3 +108,11 @@ export default function CodeEditor() {
         </section>
     );
 }
+
+
+
+
+
+
+
+
