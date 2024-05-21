@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: "https://codehub-24.vercel.app/", //frontend port number
+		origin: "*", //frontend port number
 		credentials: true,
 	})
 );
