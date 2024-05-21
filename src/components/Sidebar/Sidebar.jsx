@@ -34,25 +34,6 @@ const Sidebar = () => {
         { title: "FileName 3" },
       ],
     },
-    {
-      title: "Requests",
-      icon: "/images/Request.png",
-      submenu: true,
-      submenuItems: [
-        { title: "Pending Request" },
-        { title: "Pending Request" },
-        { title: "Pending Request" },
-      ],
-    },
-
-    {
-      title: "Merge Groups",
-      icon : "/images/Merge.png",
-    },
-    { title: "My Groups",
-      to : "/Mygroup",
-      icon : "/images/Group.png"
-  },
     
   ];
 
@@ -69,7 +50,7 @@ const Sidebar = () => {
   //   },
     {
     title : "Logout",
-    icon : "/images/LogoutRoundedleft.png"
+    icon : "/images/LogoutRoundedLeft.png"
     },
   ];
 
@@ -153,7 +134,7 @@ const Sidebar = () => {
           </ul>
 
           <div className="flex items-center bg-[#141414]" onClick={() => setOpen(!open)}>
-            <img src="/images/Doubleleft.png" className={`h-10 w-8 left-3 cursor-pointer ${
+            <img src="/images/DoubleLeft.png" className={`h-10 w-8 left-3 cursor-pointer ${
               !open && "rotate-180"
             }`} />
             <button
