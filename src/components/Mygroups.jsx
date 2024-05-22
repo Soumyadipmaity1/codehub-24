@@ -66,8 +66,8 @@ export default function Mygroup() {
                 className="flex flex-col w-full px-10"
                 onSubmit={handleSubmit((data) => handleFormSubmit(data, groupItem._id))}
               >
-                <div className="flex">
-                  <div className="mb-2 bg-white flex rounded-lg items-center">
+                <div className="flex items-center">
+                  <div className=" bg-white flex rounded-lg items-center">
                     <i className="bx bx-lock-alt text-2xl text-gray-800 py-2 px-2 "></i>
                     <input
                       type="password"
